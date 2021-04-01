@@ -17,14 +17,14 @@ apk: [If you don't like the road you're walking, start paving another one.](http
 * [apk studio](https://github.com/vaibhavpandeyvpz/apkstudio)
 * [android studio](https://developer.android.com/studio/)
   
-i tried to reverse the app firt from the smali output i get from apktool but it not the better way for a noob like me.
-then i tried abother way, i converted apk to jar to see what code does easily
+i tried to reverse the app firt from the smali output that i get from apktool but it not the better way for a noob like me.
+then i tried another way, i converted the apk to jar to see what the code does easily
 
 ```sh
 $ d2j-dex2jar -f Rokai492084659892759472878.apk
 ```
 
-then i opend the jar file with java decompiler **JD-GUI**
+then i opened the jar file with java decompiler **JD-GUI**
 
 here's the content of the MainActivity:
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 the source code is clear now, just a simple app with `textview` and `button` when you click the button it will call the column `pwd` from `content://com.rokai2.contentprovider/pwd` then will get the *pwd* string value and if it fails it will show this Message `"Sorry We did not find the provider!!"` and if it finds the data will compare it with this string `"Welocme1nCyb3rT4l3nt5"` and then call our FLAG with the native library `stringFromJNI()` then tha flag will appear in the text view `textView.setText(str);`
 
-at this moment and after searching for what content provider is we know what to do. 
+at this moment and after searching for what content provider is, we know what to do. 
 if you don't know what content provider is, it's just an android api that enable apps to share their own data or to access the data from other apps, such as the Contacts app.
 
 ![content provider](https://androidary.files.wordpress.com/2015/07/08ee4-cp.png)
@@ -85,6 +85,7 @@ if (cursor.getString(cursor.getColumnIndex("pwd")) == "Welocme1nCyb3rT4l3nt5")
 ```
 
 so we need to modify the apk
+
 by using APK studio and opening *smali/com/Rokai/cybertalents/MainActivity$1.smali* i found that this instruction `if-nq v2, v3, :cond_0` is the one that changing the app flow
 
 ```smali
@@ -106,7 +107,7 @@ $ apktool b Rokai/
 ```
 
 the modified apk stored in Rokai/dist/
-i needed no resign the apk to be able to install it 
+i needed to resign the apk to be able to install it 
 
 ```sh
 $ keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
