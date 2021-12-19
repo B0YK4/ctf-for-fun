@@ -2,7 +2,7 @@
 
 ![fire log4j](./images/fire.jpeg)
 
-`CVE-2021-22448` a zero-day critical java vulnerablility leads to Remote Code Execution (RCE), if you wanna read the story of vulnrability check this [article](https://www.lunasec.io/docs/blog/log4j-zero-day/)
+`CVE-2021-44228` a zero-day critical java vulnerablility leads to Remote Code Execution (RCE), if you wanna read the story of vulnrability check this [article](https://www.lunasec.io/docs/blog/log4j-zero-day/)
 
 > I lost my md files of this [blog](https://b0yk4.github.io/), this md file is temporary until i rebuild and update my blog.
 
